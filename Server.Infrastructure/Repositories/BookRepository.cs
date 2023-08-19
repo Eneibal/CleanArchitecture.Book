@@ -13,14 +13,23 @@ public class BookRepository : IBookRepository
         _dbContext = dbContext;
     }
 
-    public Task AddBookAsync(Book book)
+    public async Task AddBookAsync(Book book)
     {
-        throw new NotImplementedException();
+        _dbContext.Books.Add(book);
+        _dbContext.SaveChanges();
     }
 
-    public Task DeleteBookAsync(int bookId)
+    public async Task DeleteBookAsync(int bookId)
     {
-        throw new NotImplementedException();
+        var book = _dbContext.Books.FirstOrDefault(b=>b.Id == bookId);
+
+        if (book is null)
+        {
+            return;
+        }
+
+        _dbContext.Books.Remove(book);
+        _dbContext.SaveChanges();
     }
 
     public async Task<List<Book>> GetAllAsync()
@@ -28,8 +37,20 @@ public class BookRepository : IBookRepository
         return await _dbContext.Books.ToListAsync();
     }
 
-    public Task UpdateBookAsync(Book book)
+    public async Task UpdateBookAsync(Book book)
     {
-        throw new NotImplementedException();
+        var updateBook = _dbContext.Books.FirstOrDefault(b=>b.Id==book.Id);
+
+        if(updateBook is null)
+        {
+            return;
+        }
+
+        updateBook.Publisher = book.Publisher;
+        updateBook.Author = book.Author;
+        updateBook.NumberOfPages = book.NumberOfPages;
+        updateBook.Name = book.Name;
+
+        _dbContext.SaveChanges();
     }
 }

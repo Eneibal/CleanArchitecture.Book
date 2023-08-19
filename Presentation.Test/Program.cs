@@ -41,7 +41,10 @@ using (var scope = serviceProvide.CreateScope())
     var newBook = new Book
     {
         TimeOfPublication = DateTime.Now,
-        Name = "NAme1"
+        Name = "NAme1",
+        Publisher = new Publisher() { Name = "Publisher1"},
+        Genre = new Genre() { Name = "Genre1"},
+        Author = new Author() { Name =" Author1"}
 
     };
 

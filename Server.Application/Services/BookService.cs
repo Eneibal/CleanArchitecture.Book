@@ -1,11 +1,6 @@
 ﻿using Server.Application.Interfaces;
 using Server.Domain.Interfaces;
 using Server.Domain.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Server.Application.Services;
 public class BookService : IBookService
@@ -15,14 +10,14 @@ public class BookService : IBookService
     {
         _bookRepository = bookRepository;
     }
-    public Task AddBookAsync(Book book)
+    public async Task AddBookAsync(Book book)
     {
-        throw new NotImplementedException();
+        await _bookRepository.AddBookAsync(book);
     }
 
-    public Task DeleteBookAsync(int bookId)
+    public async Task DeleteBookAsync(int bookId)
     {
-        throw new NotImplementedException();
+        await _bookRepository.DeleteBookAsync(bookId);
     }
 
     public async Task<List<Book>> GetAllAsync()
@@ -31,8 +26,8 @@ public class BookService : IBookService
         return books;
     }
 
-    public Task UpdateBookAsync(Book book)
+    public async Task UpdateBookAsync(Book book)
     {
-        throw new NotImplementedException();
+        await _bookRepository.UpdateBookAsync(book);
     }
 }
